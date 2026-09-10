@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '../services/api';
 import Column from './Column';
+import '../styles/board.css';
 
 function Board() {
   const [tasks, setTasks] = useState([]);
@@ -15,10 +16,7 @@ function Board() {
     e.preventDefault();
     if (!nuevoTitulo.trim()) return;
     api.post('/tasks', { title: nuevoTitulo, status: 'pendiente' })
-       .then((response) => {
-         setTasks([...tasks, response.data.data]);
-         setNuevoTitulo('');
-       });
+       .then((response) => { setTasks([...tasks, response.data.data]); setNuevoTitulo(''); });
   };
 
   const eliminarTarea = (id) => {
@@ -41,11 +39,11 @@ function Board() {
           onChange={(e) => setNuevoTitulo(e.target.value)}
           placeholder="Nueva tarea"
         />
-        <button type="submit">Agregar</button>
+        <button type="submit">➕ Agregar</button>
       </form>
-      <Column title="Pendiente" tasks={pendientes} onCambiarEstado={cambiarEstado} onEliminar={eliminarTarea} />
-      <Column title="En progreso" tasks={enProgreso} onCambiarEstado={cambiarEstado} onEliminar={eliminarTarea} />
-      <Column title="Completada" tasks={completadas} onCambiarEstado={cambiarEstado} onEliminar={eliminarTarea} />
+      <Column title={`📋 Pendiente (${pendientes.length})`} tasks={pendientes} onCambiarEstado={cambiarEstado} onEliminar={eliminarTarea} />
+      <Column title={`🔄 En progreso (${enProgreso.length})`} tasks={enProgreso} onCambiarEstado={cambiarEstado} onEliminar={eliminarTarea} />
+      <Column title={`✅ Completada (${completadas.length})`} tasks={completadas} onCambiarEstado={cambiarEstado} onEliminar={eliminarTarea} />
     </div>
   );
 }

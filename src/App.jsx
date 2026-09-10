@@ -1,12 +1,16 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 
 function App() {
+  // Paso 2 (Sesión 7): HashRouter (en vez de BrowserRouter) para que las
+  // rutas funcionen en un hosting estático como GitHub Pages, que no sabe
+  // devolver index.html ante una URL profunda (ej. /dashboard) recargada
+  // directamente — con hash (#/dashboard) esa parte nunca llega al servidor.
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -18,10 +22,9 @@ function App() {
             </PrivateRoute>
           }
         />
-        {/* Cualquier ruta no definida (incluida "/") redirige a /login */}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
