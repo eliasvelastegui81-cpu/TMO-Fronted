@@ -3,6 +3,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
+import TaskDetail from './pages/TaskDetail';
 
 function App() {
   // Paso 2 (Sesión 7): HashRouter (en vez de BrowserRouter) para que las
@@ -22,6 +23,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/tasks/:id" element={<PrivateRoute><TaskDetail /></PrivateRoute>} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </HashRouter>

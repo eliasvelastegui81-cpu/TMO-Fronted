@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function TaskCard({ id, title, status, onCambiarEstado, onEliminar }) {
   const siguiente = {
     pendiente: 'en_progreso',
@@ -7,7 +9,7 @@ function TaskCard({ id, title, status, onCambiarEstado, onEliminar }) {
 
   return (
     <div className={`task-card ${status}`}>
-      <h4>{title}</h4>
+      <h4><Link to={`/tasks/${id}`}>{title}</Link></h4>
       <span className={`badge ${status}`}>{status}</span>
       {siguiente[status] && (
         <button onClick={() => onCambiarEstado(id, siguiente[status])}>

@@ -55,3 +55,22 @@ flowchart LR
 ## Comprobación del flujo
 
 Registrar un usuario, cerrar sesión, iniciar sesión, crear una tarea, avanzar su estado y recargar. Después eliminarla y recargar para comprobar que no vuelve. Sin sesión, `/#/dashboard` debe redirigir a `/#/login`.
+
+## Tarea 3 — Neicer Jimenez
+
+Rama: `tarea3-neicer-jimenez`.
+
+Haz clic en el título de una tarjeta para abrir `/#/tasks/:id`. El botón **Editar tarea** abre un formulario controlado para título, descripción y estado. **Guardar cambios** envía un PATCH a la API; **Cancelar** conserva los datos anteriores.
+
+La ruta usa `PrivateRoute` y el backend comprueba que la tarea pertenezca al usuario autenticado. La implementación reutiliza los endpoints de consulta y actualización de las prácticas 4 y 5.
+
+Verificación: `npm run build` y prueba en Chromium de detalle, edición y recarga, cancelación, título vacío, tarea ajena (404), fallo de red y pantalla de 360 px.
+
+Para revisar esta tarea antes de integrarla:
+
+```bash
+git fetch origin
+git switch tarea3-neicer-jimenez
+npm install
+npm run dev
+```
