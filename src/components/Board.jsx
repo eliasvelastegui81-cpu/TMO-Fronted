@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import api from '../services/api';
 import Column from './Column';
+import TaskDetailModal from './TaskDetailModal';
 import '../styles/board.css';
 
 function Board() {
   const [tasks, setTasks] = useState([]);
   const [nuevoTitulo, setNuevoTitulo] = useState('');
+  const [tareaSeleccionada, setTareaSeleccionada] = useState(null);
 
   const cambiarEstado = (id, nuevoEstado) => {
     api.patch(`/tasks/${id}`, { status: nuevoEstado })
@@ -21,6 +23,13 @@ function Board() {
 
   const eliminarTarea = (id) => {
     api.delete(`/tasks/${id}`).then(() => setTasks(tasks.filter((t) => t.id !== id)));
+  };
+
+  const actualizarTarea = async (id, datosActualizados) => {
+    const response = await api.patch(`/tasks/${id}`, datosActualizados);
+    const tareaActualizada = response.data.data;
+    setTasks(tasks.map((t) => (t.id === id ? { ...t, ...tareaActualizada } : t)));
+    setTareaSeleccionada(null);
   };
 
   useEffect(() => {
@@ -41,9 +50,35 @@ function Board() {
         />
         <button type="submit">➕ Agregar</button>
       </form>
-      <Column title={`📋 Pendiente (${pendientes.length})`} tasks={pendientes} onCambiarEstado={cambiarEstado} onEliminar={eliminarTarea} />
-      <Column title={`🔄 En progreso (${enProgreso.length})`} tasks={enProgreso} onCambiarEstado={cambiarEstado} onEliminar={eliminarTarea} />
-      <Column title={`✅ Completada (${completadas.length})`} tasks={completadas} onCambiarEstado={cambiarEstado} onEliminar={eliminarTarea} />
+      <Column
+        title={`📋 Pendiente (${pendientes.length})`}
+        tasks={pendientes}
+        onCambiarEstado={cambiarEstado}
+        onEliminar={eliminarTarea}
+        onVerDetalle={setTareaSeleccionada}
+      />
+      <Column
+        title={`🔄 En progreso (${enProgreso.length})`}
+        tasks={enProgreso}
+        onCambiarEstado={cambiarEstado}
+        onEliminar={eliminarTarea}
+        onVerDetalle={setTareaSeleccionada}
+      />
+      <Column
+        title={`✅ Completada (${completadas.length})`}
+        tasks={completadas}
+        onCambiarEstado={cambiarEstado}
+        onEliminar={eliminarTarea}
+        onVerDetalle={setTareaSeleccionada}
+      />
+
+      {tareaSeleccionada && (
+        <TaskDetailModal
+          task={tareaSeleccionada}
+          onClose={() => setTareaSeleccionada(null)}
+          onGuardar={actualizarTarea}
+        />
+      )}
     </div>
   );
 }
