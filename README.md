@@ -55,3 +55,25 @@ flowchart LR
 ## Comprobación del flujo
 
 Registrar un usuario, cerrar sesión, iniciar sesión, crear una tarea, avanzar su estado y recargar. Después eliminarla y recargar para comprobar que no vuelve. Sin sesión, `/#/dashboard` debe redirigir a `/#/login`.
+
+## Tarea 3 — Anthony Ramirez
+
+Rama: `tarea3-anthony-ramirez`.
+
+Implementación de la **vista de detalle y edición de una tarea** en React:
+- Al hacer clic en el título de cualquier tarea en el tablero (`TaskCard`), se navega a `/#/tasks/:id`.
+- En la vista de detalle (`TaskDetail.jsx`), se consultan los datos de la tarea mediante `api.get('/tasks/:id')` utilizando `useEffect` y `useState`.
+- Se presenta el detalle completo con título, descripción, fecha de creación y badge de estado correspondiente.
+- El botón **✏️ Editar tarea** activa un **formulario controlado** (`useState` para título, descripción y selector de estado).
+- Al enviar el formulario, se ejecuta una petición `api.patch('/tasks/:id', ...)` que actualiza el recurso en el backend Laravel y refresca la vista; incluye retroalimentación visual de carga (`saving`), mensajes de éxito/error y validación de campo requerido.
+- El botón **Cancelar** restaura los valores previos de la tarea y sale del modo de edición sin alterar los datos.
+- La ruta `/#/tasks/:id` está debidamente protegida con el componente `PrivateRoute`.
+
+### Revisión de la rama:
+
+```bash
+git fetch origin
+git switch tarea3-anthony-ramirez
+npm install
+npm run dev
+```

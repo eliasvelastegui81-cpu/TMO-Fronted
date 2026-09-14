@@ -1,0 +1,259 @@
+/* Estilos de la vista de detalle y edición de tareas (Tarea 3 - Anthony Ramirez) */
+
+.task-detail-container {
+  max-width: 650px;
+  margin: 30px auto;
+  padding: 0 16px;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+.task-detail-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 20px;
+  padding: 6px 12px;
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.15s ease;
+}
+
+.task-detail-back-link:hover {
+  background: #eef2ff;
+  transform: translateX(-3px);
+}
+
+.task-detail-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-top: 5px solid var(--color-primary);
+}
+
+.task-detail-card.pendiente {
+  border-top-color: #b0bec5;
+}
+
+.task-detail-card.en_progreso {
+  border-top-color: #42a5f5;
+}
+
+.task-detail-card.completada {
+  border-top-color: #66bb6a;
+}
+
+.task-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.task-detail-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #0f172a;
+  word-break: break-word;
+}
+
+.task-detail-id {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.task-detail-section {
+  margin-bottom: 22px;
+}
+
+.task-detail-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.task-detail-description {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #334155;
+  white-space: pre-wrap;
+  background: #f8fafc;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border-left: 3px solid #cbd5e1;
+  min-height: 50px;
+}
+
+.task-detail-description.empty {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.task-detail-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 13px;
+  color: #64748b;
+  padding-top: 14px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.task-detail-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-edit {
+  background: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-edit:hover {
+  background: var(--color-primary-dark);
+}
+
+.btn-secondary {
+  background: #64748b;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #475569;
+}
+
+/* Formulario controlado de edición */
+.task-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  font-family: inherit;
+  font-size: 15px;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius);
+  background: white;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-field select {
+  cursor: pointer;
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+.form-field input:disabled,
+.form-field textarea:disabled,
+.form-field select:disabled {
+  background: #f1f5f9;
+  cursor: not-allowed;
+}
+
+.task-edit-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn-save {
+  background: #16a34a;
+}
+
+.btn-save:hover {
+  background: #15803d;
+}
+
+/* Mensajes y estados de alerta */
+.alert {
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.alert-error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.alert-success {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.loading-state,
+.not-found-state {
+  text-align: center;
+  padding: 40px 20px;
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e2e8f0;
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 12px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
